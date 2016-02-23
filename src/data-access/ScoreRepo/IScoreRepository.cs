@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace data_access.Players
+namespace data_access.ScoreRepo
 {
-    public interface IPlayer
+    public interface IScoreRepository
     {
     }
 }

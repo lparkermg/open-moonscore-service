@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using entities;
 
-namespace data_access.Scores
+namespace data_access.PlayerRepo
 {
-    public interface IScore
+    public interface IPlayerRepository
     {
     }
 }
