@@ -10,7 +10,7 @@ namespace data_access.ScoreRepo
     public interface IScoreRepository
     {
         void Add(Score score);
-        List<Score> GetScoresByGame(string gameName, int amount);
+        List<Score> GetScoresByGame(Guid gameId, string orderBy,int amount);
 
     }
 }
