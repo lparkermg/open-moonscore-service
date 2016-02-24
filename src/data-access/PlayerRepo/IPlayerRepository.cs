@@ -9,7 +9,7 @@ namespace data_access.PlayerRepo
 {
     public interface IPlayerRepository
     {
-        void Add(Player player);
+        Player Add(string username, string displayName, string passwordHash);
         Player Get(string username);
         Player GetAll(bool onlyActive);
         void Deactivate(string username, string email, string passwordHash);

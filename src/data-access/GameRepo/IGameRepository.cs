@@ -9,7 +9,7 @@ namespace data_access.GameRepo
 {
     public interface IGameRepository
     {
-        void Add(Game game);
+        Game Add(string name);
         Game Get(Guid id);
         void Activate(Guid id);
         void Deactivate(Guid id);
