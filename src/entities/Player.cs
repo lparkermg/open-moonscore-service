@@ -14,7 +14,10 @@ namespace entities
         public string PasswordHash { get; private set; }
         public DateTime Created { get; private set; }
         public DateTime LastUpdated { get; private set; }
-
+        public bool Deactivated { get; private set; }
+        public Guid? ReactivationToken { get; private set; }
+        public DateTime? ReactivationSent { get; private set; }
+        
         public Player(string displayName, string username, string passwordHash)
         {
             DisplayName = displayName;
@@ -22,6 +25,9 @@ namespace entities
             PasswordHash = passwordHash;
             Created = DateTime.Now;
             LastUpdated = DateTime.Now;
+            Deactivated = false;
+            ReactivationToken = null;
+            ReactivationSent = null;
         }
 
         public void UpdateDisplayName(string newName)
@@ -34,6 +40,18 @@ namespace entities
         {
             PasswordHash = newPassword;
             LastUpdated = DateTime.Now;
+        }
+
+        public void Deactivate()
+        {
+            Deactivated = true;
+            ReactivationToken = Guid.NewGuid();
+        }
+
+        public Guid SendActivationToken()
+        {
+            return ReactivationToken;
+
         }
     }
 }
