@@ -15,13 +15,13 @@ namespace entities
         public DateTime Created { get; private set; }
         public DateTime LastUpdated { get; private set; }
 
-        public Player(string displayName, string username, string passwordHash, DateTime created, DateTime lastUpdated)
+        public Player(string displayName, string username, string passwordHash)
         {
             DisplayName = displayName;
             Username = username;
             PasswordHash = passwordHash;
-            Created = created;
-            LastUpdated = lastUpdated;
+            Created = DateTime.Now;
+            LastUpdated = DateTime.Now;
         }
 
         public void UpdateDisplayName(string newName)

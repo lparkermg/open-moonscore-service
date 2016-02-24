@@ -14,13 +14,13 @@ namespace entities
         public float UserScore { get; private set; }
         public DateTime Created { get; private set; }
 
-        public Score(string scoreType, string gameName, string username, float userScore, DateTime created)
+        public Score(string scoreType, string gameName, string username, float userScore)
         {
             ScoreType = scoreType;
             GameName = gameName;
             Username = username;
             UserScore = userScore;
-            Created = created;
+            Created = DateTime.Now;
         }
     }
 }

@@ -9,6 +9,6 @@ namespace data_access.PlayerRepo
 {
     public interface IPlayerRepository
     {
-
+        
     }
 }
