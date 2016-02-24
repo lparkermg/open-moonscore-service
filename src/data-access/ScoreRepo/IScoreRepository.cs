@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace data_access.Scores
+namespace data_access.ScoreRepo
 {
-    public interface IScore
+    public interface IScoreRepository
     {
     }
 }
