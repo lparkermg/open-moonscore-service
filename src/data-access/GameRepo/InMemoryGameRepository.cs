@@ -3,35 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using data_access.Exceptions.Game;
 using entities;
 
 namespace data_access.GameRepo
 {
     public class InMemoryGameRepository : IGameRepository
     {
+        private Dictionary<Guid,Game> _repo = new Dictionary<Guid, Game>(); 
+
         public Game Add(string name)
         {
-            throw new NotImplementedException();
+            var newGame = new Game(name);
+            if (_repo.ContainsKey(newGame.Id))
+                throw new GameAlreadyExistsException("Game Id already exists.");
+
+            _repo.Add(newGame.Id,newGame);
+
+            return newGame;
         }
 
         public Game Get(Guid id)
         {
-            throw new NotImplementedException();
-        }
+            if(!_repo.ContainsKey(id))
+                throw new GameNotFoundException("Game Id not found.");
 
-        public void Activate(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Deactivate(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(Guid id)
-        {
-            throw new NotImplementedException();
+            return _repo[id];
         }
     }
 }
