@@ -12,11 +12,11 @@ namespace data_access.PlayerRepo
     public class InMemoryPlayerRepository : IPlayerRepository
     {
         private Dictionary<string,Player> _repo = new Dictionary<string, Player>();
-        public Player Add(string username, string displayName, string passwordHash)
+        public Player Add(string username, string displayName, string passwordHash,string email)
         {
             if(_repo.ContainsKey(username))
                 throw new PlayerAlreadyExistsException("Player already exists.");
-            var player = new Player(displayName, username, passwordHash);
+            var player = new Player(displayName, username, passwordHash,email);
             _repo.Add(username,player );
 
             return player;
@@ -24,8 +24,7 @@ namespace data_access.PlayerRepo
 
         public Player Get(string username)
         {
-            if(!_repo.ContainsKey(username))
-                throw new PlayerNotFoundException("Player not found in database");
+            FindPlayer(username);
 
             return _repo[username];
         }
@@ -37,17 +36,37 @@ namespace data_access.PlayerRepo
 
         public void Deactivate(string username, string email, string passwordHash)
         {
-            throw new NotImplementedException();
+            FindPlayer(username);
+            var player = _repo[username];
+            if (player.Email == email && player.PasswordHash == passwordHash)
+            {
+                _repo[username].Deactivate();
+            }
         }
 
         public void Activate(string username, string email, Guid token)
         {
-            throw new NotImplementedException();
+            FindPlayer(username);
+            var player = _repo[username];
+            if (player.ReactivationSent == null)
+                throw new InvalidOperationException("Player has not requested reactivation");
+
+            //TODO: Make sure DateTime.Compare works properly.
+            if (player.Email == email && player.ReactivationToken == token && DateTime.Compare(player.ReactivationSent.Value.AddMinutes(30),DateTime.Now) == -1)
+            {
+                _repo[username].Activate();
+            }
         }
 
         public void Delete(string username, string email, string passwordHash)
         {
-            throw new NotImplementedException();
+            FindPlayer(username);
+
+            var player = _repo[username];
+            if (player.Email == email && player.PasswordHash == passwordHash)
+            {
+                _repo.Remove(username);
+            }
         }
 
         private List<Player> GetAllThePlayers(bool onlyActive)
@@ -58,6 +77,12 @@ namespace data_access.PlayerRepo
                 return values.Where(player => player.Deactivated == false).ToList();
             else
                 return values.ToList();
+        }
+
+        private void FindPlayer(string username)
+        {
+            if(!_repo.ContainsKey(username))
+                throw new PlayerNotFoundException("Player doesn't exist.");
         }
     }
 }
