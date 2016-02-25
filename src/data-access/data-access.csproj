@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\Game\GameAlreadyExistsException.cs" />
+    <Compile Include="Exceptions\Game\GameNotFoundException.cs" />
+    <Compile Include="Exceptions\Player\PlayerAlreadyExistsException.cs" />
+    <Compile Include="Exceptions\Player\PlayerNotFoundException.cs" />
     <Compile Include="GameRepo\IGameRepository.cs" />
     <Compile Include="GameRepo\InMemoryGameRepository.cs" />
     <Compile Include="PlayerRepo\InMemoryPlayerRepository.cs" />

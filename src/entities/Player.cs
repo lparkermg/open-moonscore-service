@@ -48,8 +48,9 @@ namespace entities
             ReactivationToken = Guid.NewGuid();
         }
 
-        public Guid SendActivationToken()
+        public Guid? SendActivationToken()
         {
+            ReactivationSent = DateTime.Now;
             return ReactivationToken;
 
         }
