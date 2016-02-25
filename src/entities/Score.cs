@@ -8,19 +8,21 @@ namespace entities
 {
     public class Score
     {
+        public Guid Id { get; private set; }
         public string ScoreType { get; private set; }
-        public string GameName { get; private set; }
+        public Guid GameId { get; private set; }
         public string Username { get; private set; }
         public float UserScore { get; private set; }
         public DateTime Created { get; private set; }
 
-        public Score(string scoreType, string gameName, string username, float userScore)
+        public Score(string scoreType, Guid gameId, string username, float userScore)
         {
             ScoreType = scoreType;
-            GameName = gameName;
+            GameId = gameId;
             Username = username;
             UserScore = userScore;
             Created = DateTime.Now;
+            Id = Guid.NewGuid();
         }
     }
 }
